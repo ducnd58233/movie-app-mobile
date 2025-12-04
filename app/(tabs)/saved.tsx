@@ -1,0 +1,12 @@
+import { View, Text } from "react-native";
+
+const Saved = () => {
+  return (
+    <View>
+      <Text>Saved</Text>
+    </View>
+  );
+};
+
+export default Saved;
+Saved.displayName = "Saved";
