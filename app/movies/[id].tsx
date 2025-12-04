@@ -26,7 +26,7 @@ const MovieDetails = () => {
   const { id } = useLocalSearchParams();
   const {
     data: movieDetails,
-  } = useFetch(() => fetchMovieDetails({ id: id as string }), true, [id]);
+  } = useFetch((signal) => fetchMovieDetails({ id: id as string, signal }), true, [id]);
 
   return (
     <View className="bg-primary flex-1">
@@ -67,8 +67,8 @@ const MovieDetails = () => {
           <MovieInfo label="Genre" value={movieDetails?.genres?.map((genre) => genre.name).join(" - ") || "N/A"} />
 
           <View className="flex flex-row justify-between w-full">
-            <MovieInfo label="Budget" value={`$${movieDetails?.budget || 0 / 1_000_000} million`} />
-            <MovieInfo label="Revenue" value={`$${Math.round(movieDetails?.revenue || 0 / 1_000_000)}`} />
+            <MovieInfo label="Budget" value={`$${Math.round((movieDetails?.budget || 0) / 1_000_000)} million`} />
+            <MovieInfo label="Revenue" value={`$${Math.round((movieDetails?.revenue || 0) / 1_000_000)} million`} />
           </View>
 
           <MovieInfo label="Production Companies" value={movieDetails?.production_companies?.map((company) => company.name).join(" - ") || "N/A"} />

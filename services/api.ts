@@ -8,7 +8,13 @@ export const TMDB_CONFIG = {
   }
 }
 
-export const fetchMovies = async ({ query }: { query: string }): Promise<Movie[]> => {
+export const fetchMovies = async ({ 
+  query, 
+  signal 
+}: { 
+  query: string;
+  signal?: AbortSignal;
+}): Promise<Movie[]> => {
   try {
     const endpoint = query
       ? `/search/movie?query=${encodeURIComponent(query)}`
@@ -17,6 +23,7 @@ export const fetchMovies = async ({ query }: { query: string }): Promise<Movie[]
     const response = await fetch(`${TMDB_CONFIG.BASE_URL}${endpoint}`, {
       method: "GET",
       headers: TMDB_CONFIG.headers,
+      signal,
     });
 
     if (!response.ok) {
@@ -26,15 +33,22 @@ export const fetchMovies = async ({ query }: { query: string }): Promise<Movie[]
     const data = await response.json();
     return data.results;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
-export const fetchMovieDetails = async ({ id }: { id: string }): Promise<MovieDetails> => {
+export const fetchMovieDetails = async ({ 
+  id, 
+  signal 
+}: { 
+  id: string;
+  signal?: AbortSignal;
+}): Promise<MovieDetails> => {
   try {
     const response = await fetch(`${TMDB_CONFIG.BASE_URL}/movie/${id}`, {
       method: "GET",
       headers: TMDB_CONFIG.headers,
+      signal,
     });
 
     if (!response.ok) {
@@ -44,6 +58,6 @@ export const fetchMovieDetails = async ({ id }: { id: string }): Promise<MovieDe
     const data = await response.json();
     return data;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
