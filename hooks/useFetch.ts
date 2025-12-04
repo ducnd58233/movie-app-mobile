@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 
-
-export const useFetch = <T>(fetchFunc: () => Promise<T>, autoFetch = true) => {
+export const useFetch = <T>(
+  fetchFunc: () => Promise<T>, 
+  autoFetch = true,
+  deps: any[] = []
+) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -31,7 +34,8 @@ export const useFetch = <T>(fetchFunc: () => Promise<T>, autoFetch = true) => {
     if (autoFetch) {
       fetchData();
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoFetch, ...deps])
 
   return { data, loading, error, refetch: fetchData, reset };
 }

@@ -71,7 +71,7 @@ const Search = () => {
               </Text>
             )}
 
-            {!moviesLoading && !moviesError && searchQuery.trim() && movies?.length > 0 && (
+            {!moviesLoading && !moviesError && searchQuery.trim() && movies?.length && movies?.length > 0 && (
               <Text className="text-xl text-white font-bold">
                 Search results for {' '}
                 <Text className="text-accent">{searchQuery}</Text>
